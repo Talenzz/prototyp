@@ -102,8 +102,14 @@ const TrackSchema: Schema = new Schema({
             },
         }
     },
-    genres: [String],
-    tags: [String],
+    genres: {
+        type: [String],
+        required: true,
+    },
+    tags: {
+        type: [String],
+        required: true,
+    },
     recommendations: {
         type: Number,
         default: 0,
@@ -118,5 +124,9 @@ const TrackSchema: Schema = new Schema({
     },
     updated: Date,
 });
+
+// create an index for the genres and tags for faster search
+TrackSchema.index({ 'genres': 1 }, { unique: false })
+TrackSchema.index({ 'tags': 1 }, { unique: false })
 
 export const Track: Model<ITrack> = models.Track || model<ITrack>('Track', TrackSchema);
