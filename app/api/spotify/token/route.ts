@@ -1,3 +1,4 @@
+import { getClient } from '@/utils/redis';
 import { NextResponse } from 'next/server';
 
 export type SpotifyToken = {
@@ -7,23 +8,45 @@ export type SpotifyToken = {
     scope: string;
 }
 
+const spotifiyRedisKey = 'spotifyToken';
+
 export async function GET() {
-    const url = "https://accounts.spotify.com/api/token";
-    const headers = new Headers();
-    headers.set("Content-Type", "application/x-www-form-urlencoded");
-    // headers.set("Authorization", "Basic " + btoa(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET));
+    try {
+        const client = getClient();
 
-    // const body = new URLSearchParams();
-    // body.append("grant_type", "client_credentials");
+        if (!client.isOpen || !client) return NextResponse.json({ error: 'redis connection failed' }, { status: 500 });
 
-    const res = await fetch(url, {
-        method: "POST",
-        headers,
-        body: `grant_type=client_credentials&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`,
-        next: { revalidate: 3600 }
-    });
+        const tokenString = await client.get(spotifiyRedisKey);
 
-    const data: SpotifyToken = await res.json();
+        if (tokenString) {
+            client.quit();
 
-    return NextResponse.json(data)
+            const token: SpotifyToken = JSON.parse(tokenString);
+            return NextResponse.json(token);
+        }
+
+        const url = "https://accounts.spotify.com/api/token";
+        const headers = new Headers();
+        headers.set("Content-Type", "application/x-www-form-urlencoded");
+
+        const res = await fetch(url, {
+            method: "POST",
+            headers,
+            body: `grant_type=client_credentials&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`,
+            cache: "no-cache"
+        });
+
+        const data: SpotifyToken = await res.json();
+
+        await client.set(spotifiyRedisKey, JSON.stringify(data), {
+            EX: data.expires_in / 2
+        });
+        client.quit();
+
+        return NextResponse.json({ token: data });
+
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ error: error }, { status: 500 });
+    }
 }

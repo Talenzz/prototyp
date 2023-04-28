@@ -1,26 +1,26 @@
-import { connect } from '@/utils/mongo';
-import { NextResponse } from 'next/server';
+import { connect } from '@/lib/mongo';
+import { ITrack, Track } from '@/models/Track';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST() {
-    // establish connection to MongoDB
-    // await connect();
+export async function POST(request: NextRequest) {
+    await connect();
 
-    // const url = "https://accounts.spotify.com/api/token";
-    // const headers = new Headers();
-    // headers.set("Content-Type", "application/x-www-form-urlencoded");
-    // // headers.set("Authorization", "Basic " + btoa(process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET));
+    try {
+        const track: ITrack = await request.json();
 
-    // // const body = new URLSearchParams();
-    // // body.append("grant_type", "client_credentials");
+        const trackExists = await Track.exists({ id: track.id });
 
-    // const res = await fetch(url, {
-    //     method: "POST",
-    //     headers,
-    //     body: `grant_type=client_credentials&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`,
-    //     next: { revalidate: 3600 }
-    // });
+        if (trackExists) {
+            await Track.updateOne({ id: track.id }, { $inc: { recommendations: 1 } });
 
-    // const data = await res.json();
+            return NextResponse.json({ message: `Song with id ${track.id} got incremented recommendation` });
+        }
 
-    return NextResponse.json({})
+        await Track.create(track);
+
+        return NextResponse.json({ message: `Song with id ${track.id} was recommended successfully` });
+    }
+    catch (error) {
+        return NextResponse.json({ error: error }, { status: 500 });
+    }
 }
