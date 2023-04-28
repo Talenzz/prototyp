@@ -69,7 +69,7 @@ export function HeroTitle() {
                         >
                             Empfehlen und Entdecken:
                         </Text>{" "}
-                        Wie funktioniert`&apos;`s?
+                        Wie funktioniert&apos;s?
                     </h1>
 
                     <Text className={classes.description} color="dimmed">

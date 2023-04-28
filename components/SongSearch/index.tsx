@@ -16,6 +16,7 @@ import { SongCard } from "../SongCard";
 import { useEffect, useState } from "react";
 import { useDebouncedValue } from "@mantine/hooks";
 import { SpotifyToken } from "@/app/api/spotify/token/route";
+import { ITrackSearchResult } from "@/types/spotify";
 
 const useStyles = createStyles((theme) => ({
     wrapper: {
@@ -75,12 +76,11 @@ type SongSearchProps = {
 export function SongSearch({ token }: SongSearchProps) {
     const { classes } = useStyles();
 
-    const [accessToken, setAccessToken] = useState(token.access_token);
-
+    // song input states
     const [value, setValue] = useState("");
     const [debounced] = useDebouncedValue(value, 350);
 
-    const [songs, setSongs] = useState<any[]>([]);
+    // song cards
     const [cards, setCards] = useState<JSX.Element[]>([]);
 
     // search on debounced value change
@@ -93,13 +93,16 @@ export function SongSearch({ token }: SongSearchProps) {
     };
 
     async function search() {
-        if (!value) return;
+        if (!value) {
+            setCards([]);
+            return;
+        };
 
         const res = await axios.get(
             `https://api.spotify.com/v1/search?q=${value}&type=track`,
             {
                 headers: {
-                    Authorization: `Bearer ${accessToken}`,
+                    Authorization: `Bearer ${token.access_token}`,
                 },
                 params: {
                     limit: 9,
@@ -107,10 +110,10 @@ export function SongSearch({ token }: SongSearchProps) {
             }
         );
 
-        setSongs(res.data.tracks.items);
+        const searchResult: ITrackSearchResult = res.data;
 
-        const c = songs.map((song: any) => {
-            const artists = song.artists.map((artist: any) => ({
+        const tmpCards = searchResult.tracks.items.map((song) => {
+            const artists = song.artists.map((artist) => ({
                 url: artist.external_urls.spotify,
                 name: artist.name,
             }));
@@ -138,7 +141,7 @@ export function SongSearch({ token }: SongSearchProps) {
             );
         });
 
-        setCards(c);
+        setCards(tmpCards);
     }
 
     return (
