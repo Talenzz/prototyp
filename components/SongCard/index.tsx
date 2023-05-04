@@ -1,13 +1,5 @@
+import { ITrack } from "@/types/spotify";
 import { createStyles, Card, Image, Text, Group } from "@mantine/core";
-
-type SongProps = {
-    title: string;
-    link: string;
-    artists: { url: string; name: string }[];
-    album: { url: string; name: string };
-    image: { url: string; width: number; height: number; alt?: string };
-    onclick?: (song: string) => void;
-};
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -33,14 +25,12 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-export function SongCard({
-    title,
-    link,
-    artists,
-    album,
-    image,
-    onclick,
-}: SongProps) {
+type SongProps = {
+    track: ITrack;
+    onclick: (track: ITrack) => void;
+};
+
+export function SongCard({ track, onclick }: SongProps) {
     const { classes } = useStyles();
 
     return (
@@ -51,38 +41,38 @@ export function SongCard({
             radius="md"
             withBorder
             onClick={() => {
-                onclick && onclick(link);
+                onclick(track);
             }}
         >
             <Card.Section>
-                <Image src={image.url} alt={image.alt} />
+                <Image src={track.album.images[0].url} alt={track.name} />
             </Card.Section>
 
             <Group position="apart" mt="md">
                 <Text
                     component="a"
                     className={classes.links}
-                    href={link}
+                    href={track.external_urls.spotify}
                     weight={500}
                 >
-                    {title}
+                    {track.name}
                 </Text>
             </Group>
 
-            {artists.map((artist, index) => (
+            {track.artists.map((artist, index) => (
                 <Text
                     className={classes.links}
                     component="a"
                     fz="sm"
-                    href={artist.url}
+                    href={artist.external_urls.spotify}
                     key={artist.name}
                     sx={
-                        index >= artists.length - 1
+                        index >= track.artists.length - 1
                             ? {}
                             : { marginRight: "0.5rem" }
                     }
                 >
-                    {index >= artists.length - 1
+                    {index >= track.artists.length - 1
                         ? artist.name
                         : `${artist.name},`}
                 </Text>

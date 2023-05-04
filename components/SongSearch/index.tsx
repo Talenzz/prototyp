@@ -2,21 +2,20 @@
 
 import {
     createStyles,
-    Text,
     Title,
     TextInput,
-    Button,
-    rem,
     Container,
     Flex,
     Center,
+    Modal,
 } from "@mantine/core";
 import axios from "axios";
 import { SongCard } from "../SongCard";
 import { useEffect, useState } from "react";
-import { useDebouncedValue } from "@mantine/hooks";
+import { useDebouncedValue, useDisclosure } from "@mantine/hooks";
 import { SpotifyToken } from "@/app/api/spotify/token/route";
-import { ITrackSearchResult } from "@/types/spotify";
+import { ITrack, ITrackSearchResult } from "@/types/spotify";
+import { SongRecommend } from "../SongRecommend";
 
 const useStyles = createStyles((theme) => ({
     wrapper: {
@@ -83,20 +82,26 @@ export function SongSearch({ token }: SongSearchProps) {
     // song cards
     const [cards, setCards] = useState<JSX.Element[]>([]);
 
+    // modal
+    const [opened, { open, close }] = useDisclosure(false);
+    const [activeTrack, setActiveTrack] = useState<ITrack | null>(null);
+
     // search on debounced value change
     useEffect(() => {
         search();
     }, [debounced]);
 
-    const onCardClick = (link: string) => {
-        console.log(link);
+    const onCardClick = (track: ITrack) => {
+        setActiveTrack(track);
+        // opens modal
+        open();
     };
 
     async function search() {
         if (!value) {
             setCards([]);
             return;
-        };
+        }
 
         const res = await axios.get(
             `https://api.spotify.com/v1/search?q=${value}&type=track`,
@@ -113,31 +118,8 @@ export function SongSearch({ token }: SongSearchProps) {
         const searchResult: ITrackSearchResult = res.data;
 
         const tmpCards = searchResult.tracks.items.map((song) => {
-            const artists = song.artists.map((artist) => ({
-                url: artist.external_urls.spotify,
-                name: artist.name,
-            }));
-
-            const image = song.album.images[0];
-
             return (
-                <SongCard
-                    key={song.id}
-                    title={song.name}
-                    link={song.external_urls.spotify}
-                    artists={artists}
-                    album={{
-                        url: song.album.external_urls.spotify,
-                        name: song.album.name,
-                    }}
-                    image={{
-                        url: image.url,
-                        width: image.width,
-                        height: image.height,
-                        alt: song.name,
-                    }}
-                    onclick={onCardClick}
-                />
+                <SongCard key={song.id} track={song} onclick={onCardClick} />
             );
         });
 
@@ -190,6 +172,21 @@ export function SongSearch({ token }: SongSearchProps) {
                     </Flex>
                 </Center>
             </Container>
+            <Modal
+                opened={opened}
+                onClose={close}
+                // title={`Recommend Song: ${activeTrack?.name}`}
+                size="80%"
+                centered
+            >
+                {activeTrack && (
+                    <SongRecommend
+                        track={activeTrack}
+                        token={token}
+                        close={close}
+                    />
+                )}
+            </Modal>
         </>
     );
 }
