@@ -32,6 +32,7 @@ import {
 } from "react-icons/hi2";
 import { MdArrowForwardIos, MdRefresh } from "react-icons/md";
 import { ISong } from "@/models/Song";
+import { DiscoverSongInformationComponent } from "@/components/DiscoverSongInformation";
 
 const useStyles = createStyles((theme) => ({
     title: {
@@ -60,7 +61,7 @@ interface FilterFormSchema {
 
 interface MusicComponentProps {
     // add latest 50 songs as initial value
-    songs: ISong[]; 
+    songs: ISong[];
 }
 
 export function MusicComponent({ songs }: MusicComponentProps) {
@@ -106,6 +107,7 @@ export function MusicComponent({ songs }: MusicComponentProps) {
     const handleNextSong = (reload: boolean) => {
         if (reload) {
             setCurrentSong(fetchedSongs[0]);
+            setCurrentSongIndex(0);
         }
 
         if (currentSongIndex < fetchedSongs.length - 1) {
@@ -173,7 +175,7 @@ export function MusicComponent({ songs }: MusicComponentProps) {
                                 </ActionIcon>
                             </Tooltip>
                         </Grid.Col>
-                        <Grid.Col span={3} sx={{textAlign: "center"}}>
+                        <Grid.Col span={3} sx={{ textAlign: "center" }}>
                             {currentSongIndex < fetchedSongs.length - 1 ? (
                                 <Tooltip
                                     label="Nächstes Lied aus aktueller Playlist abspielen"
@@ -199,9 +201,7 @@ export function MusicComponent({ songs }: MusicComponentProps) {
                                     arrowPosition="center"
                                 >
                                     <Button
-                                        rightIcon={
-                                            <MdRefresh size={16} />
-                                        }
+                                        rightIcon={<MdRefresh size={16} />}
                                         variant="default"
                                         onClick={() => handleNextSong(true)}
                                     >
@@ -229,6 +229,8 @@ export function MusicComponent({ songs }: MusicComponentProps) {
                         </Grid.Col>
                     </Grid>
                 </Stack>
+                <Space h="xl" />
+                <DiscoverSongInformationComponent songs={songs} currentIndex={currentSongIndex} />
             </Container>
             <Modal opened={opened} onClose={close} size="xl">
                 <form onSubmit={Form.onSubmit((values) => setFilter(values))}>
