@@ -158,7 +158,7 @@ export function SongRecommend({ track, token, close }: SongRecommendProps) {
                                 onChange={(selection) => setSelectedGenre(selection)}
                                 data={genres}
                                 searchable
-                                nothingFound="No options"
+                                nothingFound="Kein Ergebnis gefunden"
                                 label="Wähle ein Genre aus"
                             />
                         )}
@@ -168,7 +168,7 @@ export function SongRecommend({ track, token, close }: SongRecommendProps) {
                         value={selectedSubGenre}
                         onChange={setSelectedSubGenre}
                         searchable
-                        nothingFound="Nothing found"
+                        nothingFound="Kein Ergebnis gefunden"
                         label="Wähle ein oder mehrere Subgenres aus"
                     />
                 </Group>
