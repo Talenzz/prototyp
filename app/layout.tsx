@@ -18,15 +18,15 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const headersList = headers();
-    const header_url = headersList.get("x-url") || "";
+    // const headersList = headers();
+    // const header_url = headersList.get("x-url") || "";
 
-    if (!header_url.includes("auth")) {
-        const user = getUserFromCookie(cookies());
-        if (!user) {
-            redirect("/auth/login");
-        }
-    }
+    // if (!header_url.includes("auth")) {
+    //     const user = getUserFromCookie(cookies());
+    //     if (!user) {
+    //         redirect("/auth/login");
+    //     }
+    // }
 
     return (
         <html lang="en">
