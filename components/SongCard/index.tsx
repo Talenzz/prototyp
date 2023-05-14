@@ -45,7 +45,7 @@ export function SongCard({ track, onclick }: SongProps) {
             }}
         >
             <Card.Section>
-                <Image src={track.album.images[0].url} alt={track.name} />
+                <Image src={track.album.images[0].url} width="400" height="400" alt={track.name} />
             </Card.Section>
 
             <Group position="apart" mt="md">

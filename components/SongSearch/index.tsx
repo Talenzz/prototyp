@@ -176,7 +176,7 @@ export function SongSearch({ token }: SongSearchProps) {
                 opened={opened}
                 onClose={close}
                 // title={`Recommend Song: ${activeTrack?.name}`}
-                size="80%"
+                size="65%"
                 centered
             >
                 {activeTrack && (
