@@ -40,6 +40,19 @@ jobs:
         POCKETBASE_URL: ${{ secrets.POCKETBASE_URL }}
       run: npm run build
       
+    - name: Create env.local file
+      run: |
+        echo "NEXT_PUBLIC_CLIENT_ID=${{ secrets.CLIENT_ID }}" > env.local
+        echo "NEXT_PUBLIC_CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}" >> env.local
+        echo "NEXT_PUBLIC_REDIS_HOST=${{ secrets.REDIS_HOST }}" > env.local
+        echo "NEXT_PUBLIC_REDIS_PORT=${{ secrets.REDIS_PORT }}" >> env.local
+        echo "NEXT_PUBLIC_POCKETBASE_URL=${{ secrets.POCKETBASE_URL }}" > env.local
+        echo "CLIENT_ID=${{ secrets.CLIENT_ID }}" > env.local
+        echo "CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}" >> env.local
+        echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" > env.local
+        echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> env.local
+        echo "POCKETBASE_URL=${{ secrets.POCKETBASE_URL }}" > env.local
+      
     - name: Log in to Docker Hub
       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
       with:
