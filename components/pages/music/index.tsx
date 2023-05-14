@@ -58,7 +58,12 @@ interface FilterFormSchema {
     sorting: SortingOptions;
 }
 
-export function MusicComponent() {
+interface MusicComponentProps {
+    // add latest 50 songs as initial value
+    songs: ISong[]; 
+}
+
+export function MusicComponent({ songs }: MusicComponentProps) {
     const { classes } = useStyles();
     const router = useRouter();
 
@@ -73,9 +78,11 @@ export function MusicComponent() {
     const [liked, setLiked] = useState(false);
     const [opened, { open, close }] = useDisclosure(false);
 
+    console.log(songs);
+
     // song state
-    const [fetchedSongs, setFetchedSongs] = useState<ISong[]>([]);
-    const [currentSong, setCurrentSong] = useState<ISong>();
+    const [fetchedSongs, setFetchedSongs] = useState<ISong[]>(songs);
+    const [currentSong, setCurrentSong] = useState<ISong>(songs[0]);
     const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
 
     const setFilter = async (values: FilterFormSchema) => {

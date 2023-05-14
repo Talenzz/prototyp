@@ -9,9 +9,10 @@ export async function GET(request: NextRequest) {
     const sorting = request.nextUrl.searchParams.get('sorting') || 'newest';
     const start = Number(request.nextUrl.searchParams.get('start')) || 1;
 
-    // if genres or tags is empty, return error
+    // if genres is empty, return default songs
     if (genres.length === 0) {
-        return NextResponse.json({ error: 'genres is empty' }, { status: 400 })
+        const defaultSongs = await pb.collection("songs").getList<ISong>(start, 50);
+        return NextResponse.json(defaultSongs.items);
     }
 
     // ref: https://github.com/pocketbase/pocketbase/discussions/1823#discussioncomment-4935299, 
