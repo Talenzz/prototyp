@@ -1,6 +1,8 @@
 import { SpotifyToken } from "../api/spotify/token/route";
 import { RecommendComponent } from "@/components/pages/recommend";
 
+export const dynamic = 'force-dynamic';
+
 async function getToken() {
     // need the functionality of refreshing the token, when its expired!
     // maybe use a store or something
@@ -9,6 +11,7 @@ async function getToken() {
     });
     return (await res.json()) as SpotifyToken;
 }
+
 export default async function Marketplace() {
     const data = await getToken();
     if(!data) {
