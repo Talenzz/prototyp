@@ -18,6 +18,7 @@ export default async function Marketplace() {
         // reload page
         return <></>;
     }
+    console.log(data);
 
     return <RecommendComponent token={data} />;
 }
