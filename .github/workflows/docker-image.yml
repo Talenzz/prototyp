@@ -8,11 +8,7 @@ jobs:
   build:
     name: Build image and push to Docker Hub
     runs-on: ubuntu-latest
-    services:
-      redis:
-        image: redis
-        ports: 
-          - 6379:6379
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -30,6 +26,7 @@ jobs:
       env:
         NEXT_PUBLIC_CLIENT_ID: ${{ secrets.CLIENT_ID }}
         NEXT_PUBLIC_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        NEXT_PUBLIC_BACKEND_URL: ${{ secrets.BACKEND_URL }}
         NEXT_PUBLIC_REDIS_HOST: ${{ secrets.REDIS_HOST }}
         NEXT_PUBLIC_REDIS_PORT: ${{ secrets.REDIS_PORT }}
         NEXT_PUBLIC_POCKETBASE_URL: ${{ secrets.POCKETBASE_URL }}
@@ -44,6 +41,7 @@ jobs:
       run: |
         echo "NEXT_PUBLIC_CLIENT_ID=${{ secrets.CLIENT_ID }}" > env.local
         echo "NEXT_PUBLIC_CLIENT_SECRET=${{ secrets.CLIENT_SECRET }}" >> env.local
+        echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.BACKEND_URL }}" >> env.local
         echo "NEXT_PUBLIC_REDIS_HOST=${{ secrets.REDIS_HOST }}" > env.local
         echo "NEXT_PUBLIC_REDIS_PORT=${{ secrets.REDIS_PORT }}" >> env.local
         echo "NEXT_PUBLIC_POCKETBASE_URL=${{ secrets.POCKETBASE_URL }}" > env.local

@@ -89,7 +89,7 @@ export function MusicComponent({ songs }: MusicComponentProps) {
     const setFilter = async (values: FilterFormSchema) => {
         // make api call with values
         const res = await fetch(
-            `http://localhost:3000/api/spotify/tracks?genres=${values.genres.join(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/spotify/tracks?genres=${values.genres.join(
                 ","
             )}&tags=${values.tags.join(",")}`
         ); // &sorting=${values.sorting}

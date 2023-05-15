@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 async function getToken() {
     // need the functionality of refreshing the token, when its expired!
     // maybe use a store or something
-    const res = await fetch("http://localhost:3000/api/spotify/token", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/spotify/token`, {
         cache: "no-cache",
     });
     return (await res.json()) as SpotifyToken;

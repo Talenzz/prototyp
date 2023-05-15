@@ -61,7 +61,7 @@ export function LoginComponent() {
                         // Note: add encryption and get data from form
                         // Also add decryption on API route!
                         const res = await axios.post(
-                            "http://localhost:3000/api/auth/login",
+                            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`,
                             {
                                 email: "",
                                 password: "",

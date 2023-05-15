@@ -117,7 +117,7 @@ export function SongRecommend({ track, token, close }: SongRecommendProps) {
             total_likes: 0,
         };
         // use fetch
-        var res = await fetch("http://localhost:3000/api/spotify/recommend", {
+        var res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/spotify/recommend`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
