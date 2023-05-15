@@ -12,7 +12,7 @@ async function getToken() {
     return (await res.json()) as SpotifyToken;
 }
 
-export default async function Marketplace() {
+export default async function Recommend() {
     const data = await getToken();
     if(!data) {
         // reload page
