@@ -126,6 +126,8 @@ export function SongSearch({ token }: SongSearchProps) {
         setCards(tmpCards);
     }
 
+    console.log("SongSearch", token);
+
     return (
         <>
             <Container>
