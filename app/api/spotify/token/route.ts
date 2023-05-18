@@ -11,13 +11,6 @@ export type SpotifyToken = {
 const spotifiyRedisKey = 'spotifyToken';
 
 export async function GET(request: NextRequest) {
-    console.log('GET /api/spotify/token');
-    
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-
-    console.log(id);
-
     try {
         const client = getClient();
 
