@@ -1,5 +1,5 @@
 import { getClient } from '@/utils/redis';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
 export type SpotifyToken = {
     access_token: string;
@@ -12,7 +12,11 @@ const spotifiyRedisKey = 'spotifyToken';
 
 export async function GET(request: NextRequest) {
     console.log('GET /api/spotify/token');
-    console.log('request', request);
+    
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    console.log(id);
 
     try {
         const client = getClient();
