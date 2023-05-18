@@ -11,6 +11,8 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const useStyles = createStyles((theme) => ({
     header: {
@@ -65,15 +67,20 @@ const useStyles = createStyles((theme) => ({
             }).color,
         },
     },
+
+    inactiveLink: {
+        cursor: "not-allowed",
+    },
 }));
 
 interface HeaderSimpleProps {
-    links: { link: string; label: string }[];
+    links: { link: string; label: string; activeLink?: boolean }[];
 }
 
 export function HeaderSimple({ links }: HeaderSimpleProps) {
+    const path = usePathname();
     const [opened, { toggle }] = useDisclosure(false);
-    const [active, setActive] = useState(links[0].link);
+    const [active, setActive] = useState<string | null>(path);
     const { classes, cx } = useStyles();
 
     const items = links.map((link) => (
@@ -82,9 +89,13 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
             href={link.link}
             className={cx(classes.link, {
                 [classes.linkActive]: active === link.link,
+                [classes.inactiveLink]: link.activeLink === false,
             })}
-            onClick={(event) => {
-                // event.preventDefault();
+            onClick={(e) => {
+                if (link.activeLink === false) {
+                    e.preventDefault();
+                    return;
+                }
                 setActive(link.link);
             }}
         >
@@ -95,8 +106,15 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
     return (
         <Header height={60}>
             <Container className={classes.header}>
-                {/* <MantineLogo size={28} /> */}
-                <Group spacing={5} className={classes.links} >
+                <Group spacing={5} className={classes.links}>
+                    <Link href="/" onClick={(e) => setActive(null)}>
+                        <Image
+                            src="/images/Talenzz_logo.png"
+                            height={128}
+                            width={128}
+                            alt={""}
+                        />
+                    </Link>
                     {items}
                 </Group>
 
