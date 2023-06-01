@@ -86,17 +86,10 @@ export function SongSearch({ token }: SongSearchProps) {
     const [opened, { open, close }] = useDisclosure(false);
     const [activeTrack, setActiveTrack] = useState<ITrack | null>(null);
 
-    // lokal token
-    const [localToken, setLocalToken] = useState<SpotifyToken | null>(null);
-
     // search on debounced value change
     useEffect(() => {
         search();
     }, [debounced]);
-
-    useEffect(() => {
-        getToken();
-    }, []);
 
     const onCardClick = (track: ITrack) => {
         setActiveTrack(track);
@@ -110,15 +103,11 @@ export function SongSearch({ token }: SongSearchProps) {
             return;
         }
 
-        if(!localToken) {
-            return;
-        }
-
         const res = await axios.get(
             `https://api.spotify.com/v1/search?q=${value}&type=track`,
             {
                 headers: {
-                    Authorization: `Bearer ${localToken.access_token}`,
+                    Authorization: `Bearer ${token.access_token}`,
                 },
                 params: {
                     limit: 9,
@@ -136,18 +125,6 @@ export function SongSearch({ token }: SongSearchProps) {
 
         setCards(tmpCards);
     }
-
-    const getToken = async () => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/spotify/token`, {
-            cache: "no-cache",
-        });
-
-        const token = (await res.json()) as SpotifyToken;
-
-        setLocalToken(token);
-    }
-
-    console.log("SongSearch - Parameter: ", token, "local fetched: ", localToken);
 
     return (
         <>
@@ -202,10 +179,10 @@ export function SongSearch({ token }: SongSearchProps) {
                 size="65%"
                 centered
             >
-                {activeTrack && localToken && (
+                {activeTrack && (
                     <SongRecommend
                         track={activeTrack}
-                        token={localToken}
+                        token={token}
                         close={close}
                     />
                 )}
