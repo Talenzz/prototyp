@@ -1,5 +1,5 @@
 import { getClient } from '@/utils/redis';
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic';
 
@@ -8,6 +8,7 @@ export type SpotifyToken = {
     token_type: string;
     expires_in: number;
     scope: string;
+    expires_at: number;
 }
 
 const spotifiyRedisKey = 'spotifyToken';
@@ -38,7 +39,8 @@ export async function GET() {
             cache: "no-cache"
         });
 
-        const data: SpotifyToken = await res.json();
+        let data: SpotifyToken = await res.json();
+        data.expires_at = Date.now() + (data.expires_in / 2) * 1000;
 
         await client.set(spotifiyRedisKey, JSON.stringify(data), {
             EX: data.expires_in / 2

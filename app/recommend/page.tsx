@@ -18,7 +18,7 @@ export default async function Recommend() {
         // reload page
         return <></>;
     }
-    console.log(data);
+    console.log({"initial page token": data});
 
     return <RecommendComponent token={data} />;
 }

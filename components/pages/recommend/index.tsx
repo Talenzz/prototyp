@@ -10,7 +10,7 @@ export function RecommendComponent({ token }: RecommendComponentProps) {
     return (
         <>
             <HeroTitle />
-            <SongSearch token={token} />
+            <SongSearch />
         </>
     );
 }

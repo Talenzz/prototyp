@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { IAlbum, IArtist, ITrack } from "@/types/spotify";
-import { SpotifyToken } from "@/app/api/spotify/token/route";
 import {
     Button,
     Container,
@@ -14,14 +13,17 @@ import {
 } from "@mantine/core";
 import { tags, genres } from "@/utils/genres";
 import { ISong } from "@/models/Song";
+import { useSpotifyToken } from "@/hooks/useSpotifyToken";
+import { retryFetch } from "@/utils/helper";
 
 type SongRecommendProps = {
     track: ITrack;
-    token: SpotifyToken;
     close: () => void;
 };
 
-export function SongRecommend({ track, token, close }: SongRecommendProps) {
+export function SongRecommend({ track, close }: SongRecommendProps) {
+    const [token, refetchToken, validateToken] = useSpotifyToken();
+
     // fetch data
     const [fetchedGenres, setFetchedGenres] = useState<string[]>([]);
 
@@ -34,16 +36,27 @@ export function SongRecommend({ track, token, close }: SongRecommendProps) {
     }, []);
 
     const fetchGenre = async () => {
-        const artistFetch = await axios.get(
-            `https://api.spotify.com/v1/artists/${track.artists[0].id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token.access_token}`,
-                },
-            }
-        );
+        if (!token) return;
 
-        const artist: IArtist = artistFetch.data;
+        if (!validateToken()) {
+            refetchToken();
+        }
+
+        const artistFetch = async () => {
+            const artistFetch = await axios.get(
+                `https://api.spotify.com/v1/artists/${track.artists[0].id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token.access_token}`,
+                    },
+                }
+            );
+
+            return artistFetch.data as IArtist;
+        }
+
+        const artist = await retryFetch<IArtist>(artistFetch, refetchToken);
+        if (!artist) return;
 
         if (artist.genres && artist.genres.length > 0) {
             const commonGenres = genres.filter((genre) =>
@@ -58,16 +71,20 @@ export function SongRecommend({ track, token, close }: SongRecommendProps) {
             }
         }
 
-        const albumFetch = await axios.get(
-            `https://api.spotify.com/v1/albums/${track.album.id}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token.access_token}`,
-                },
-            }
-        );
+        const albumFetch = async () => {
+            const res = await axios.get(
+                `https://api.spotify.com/v1/albums/${track.album.id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token.access_token}`,
+                    },
+                }
+            );
+            return res.data as IAlbum;
+        }
 
-        const album: IAlbum = albumFetch.data;
+        const album = await retryFetch<IAlbum>(albumFetch, refetchToken);
+        if (!album) return;
 
         if (album.genres && album.genres.length > 0) {
             // check if genres and genresCategories have any common elements

@@ -1,7 +1,6 @@
 "use client";
 
 import {
-    createStyles,
     Title,
     TextInput,
     Container,
@@ -9,70 +8,21 @@ import {
     Center,
     Modal,
 } from "@mantine/core";
-import axios from "axios";
 import { SongCard } from "../SongCard";
 import { useEffect, useState } from "react";
 import { useDebouncedValue, useDisclosure } from "@mantine/hooks";
-import { SpotifyToken } from "@/app/api/spotify/token/route";
 import { ITrack, ITrackSearchResult } from "@/types/spotify";
 import { SongRecommend } from "../SongRecommend";
+import { useStyles } from "./styles";
+import { retryFetch } from "@/utils/helper";
+import { useSpotifyToken } from "@/hooks/useSpotifyToken";
+import axios from "axios";
 
-const useStyles = createStyles((theme) => ({
-    wrapper: {
-        display: "flex",
-        alignItems: "center",
-        padding: `calc(${theme.spacing.xl} * 2)`,
-        [theme.fn.smallerThan("sm")]: {
-            flexDirection: "column-reverse",
-            padding: theme.spacing.xl,
-        },
-    },
 
-    image: {
-        maxWidth: "40%",
+export function SongSearch() {
+    const [token, refetchToken, validateToken] = useSpotifyToken();
+    console.log({ token });
 
-        [theme.fn.smallerThan("sm")]: {
-            maxWidth: "100%",
-        },
-    },
-
-    body: {
-        paddingRight: `calc(${theme.spacing.xl} * 4)`,
-        paddingLeft: `calc(${theme.spacing.xl} * 4)`,
-        [theme.fn.smallerThan("sm")]: {
-            paddingRight: 0,
-            marginTop: theme.spacing.xl,
-        },
-    },
-
-    title: {
-        color: theme.colorScheme === "dark" ? theme.white : theme.black,
-        fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-        lineHeight: 1,
-        marginBottom: theme.spacing.md,
-    },
-
-    controls: {
-        display: "flex",
-        marginTop: theme.spacing.xl,
-    },
-
-    inputWrapper: {
-        width: "100%",
-        flex: "1",
-    },
-
-    control: {
-        borderTopLeftRadius: 0,
-        borderBottomLeftRadius: 0,
-    },
-}));
-
-type SongSearchProps = {
-    token: SpotifyToken;
-};
-
-export function SongSearch({ token }: SongSearchProps) {
     const { classes } = useStyles();
 
     // song input states
@@ -103,24 +53,33 @@ export function SongSearch({ token }: SongSearchProps) {
             return;
         }
 
-        const res = await axios.get(
-            `https://api.spotify.com/v1/search?q=${value}&type=track`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token.access_token}`,
-                },
-                params: {
-                    limit: 9,
-                },
-            }
-        );
+        if (!validateToken()) {
+            refetchToken();
+        }
 
-        const searchResult: ITrackSearchResult = res.data;
-
-        const tmpCards = searchResult.tracks.items.map((song) => {
-            return (
-                <SongCard key={song.id} track={song} onclick={onCardClick} />
+        const fetchFn = async () => {
+            const res = await axios.get(
+                `https://api.spotify.com/v1/search?q=${value}&type=track`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token?.access_token}`,
+                    },
+                    params: {
+                        limit: 9,
+                    },
+                }
             );
+            return res.data as ITrackSearchResult;
+        };
+
+        const searchResult = await retryFetch<ITrackSearchResult>(fetchFn, refetchToken);
+
+        if (!searchResult) {
+            // send user message
+            return;
+        }
+        const tmpCards = searchResult.tracks.items.map((song) => {
+            return <SongCard key={song.id} track={song} onclick={onCardClick} />;
         });
 
         setCards(tmpCards);
@@ -179,10 +138,9 @@ export function SongSearch({ token }: SongSearchProps) {
                 size="65%"
                 centered
             >
-                {activeTrack && (
+                {activeTrack && token && (
                     <SongRecommend
                         track={activeTrack}
-                        token={token}
                         close={close}
                     />
                 )}
