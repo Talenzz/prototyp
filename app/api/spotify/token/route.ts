@@ -1,6 +1,8 @@
 import { getClient } from '@/utils/redis';
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export type SpotifyToken = {
     access_token: string;
     token_type: string;
@@ -10,7 +12,7 @@ export type SpotifyToken = {
 
 const spotifiyRedisKey = 'spotifyToken';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const client = getClient();
 
