@@ -119,7 +119,7 @@ export function SongRecommend({ track, close }: SongRecommendProps) {
                     name: track.name,
                     id: track.id,
                     uri: track.uri,
-                    image: track.album.images[1].url,
+                    image: track.album.images[0].url,
                 },
                 artist: artists,
                 album: {
@@ -151,7 +151,7 @@ export function SongRecommend({ track, close }: SongRecommendProps) {
                 <Title order={1}>Empfehle deinen Song!</Title>
                 <Space h="xl" />
                 <Image
-                    src={track.album.images[1].url}
+                    src={track.album.images[0].url}
                     width={300}
                     height={300}
                     alt={track.name}
