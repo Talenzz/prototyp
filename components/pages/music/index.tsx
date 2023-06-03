@@ -85,8 +85,17 @@ export function MusicComponent({ songs }: MusicComponentProps) {
     const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
 
     useEffect(() => {
-        setFetchedSongs(songs);
+        // make initial fetch
+        intialFetch();
     }, []);
+
+    const intialFetch = async () => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/spotify/tracks`, {
+            cache: "no-cache",
+        });
+        const initSongs = await res.json() as ISong[];
+        setFetchedSongs(initSongs);
+    }
 
     console.log(fetchedSongs);
 
