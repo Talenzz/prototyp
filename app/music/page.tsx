@@ -1,5 +1,10 @@
 import { MusicComponent } from "@/components/pages/music";
 import { ISong } from "@/models/Song";
+import { Metadata } from 'next';
+ 
+export const metadata: Metadata = {
+  title: 'Entdecke neue Musik',
+};
 
 export const dynamic = 'force-dynamic';
 

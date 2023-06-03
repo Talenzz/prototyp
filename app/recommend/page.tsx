@@ -1,5 +1,10 @@
 import { SpotifyToken } from "../api/spotify/token/route";
 import { RecommendComponent } from "@/components/pages/recommend";
+import { Metadata } from 'next';
+ 
+export const metadata: Metadata = {
+  title: 'Empfehle deinen Song-Tipp',
+};
 
 export const dynamic = 'force-dynamic';
 

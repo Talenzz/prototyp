@@ -11,10 +11,12 @@ import {
     Space,
     Title,
 } from "@mantine/core";
+import { notifications } from '@mantine/notifications';
 import { tags, genres } from "@/utils/genres";
 import { ISong } from "@/models/Song";
 import { useSpotifyToken } from "@/hooks/useSpotifyToken";
 import { retryFetch } from "@/utils/helper";
+import { MdCheck, MdClose } from "react-icons/md";
 
 type SongRecommendProps = {
     track: ITrack;
@@ -103,6 +105,15 @@ export function SongRecommend({ track, close }: SongRecommendProps) {
     };
 
     const onSave = async () => {
+        notifications.show({
+            id: 'recommend-song',
+            loading: true,
+            title: 'Song wird gespeichert',
+            message: 'Es wird versucht, den Song zu speichern. Bitte warten...',
+            autoClose: false,
+            withCloseButton: false,
+        });
+
         // make post requst to "http://localhost:3000/api/spotify/recommend" with data in body as json
         const artists = track.artists.map((artist) => {
             return {
@@ -140,6 +151,31 @@ export function SongRecommend({ track, close }: SongRecommendProps) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
+        });
+
+        if (res.status !== 200) {
+            notifications.update({
+                id: 'recommend-song',
+                loading: false,
+                title: 'Song konnte nicht gespeichert werden',
+                message: 'Es ist ein Fehler aufgetreten. Bitte versuche es erneut.',
+                autoClose: 2000,
+                withCloseButton: true,
+                icon: <MdClose />,
+                color: 'red'
+            });
+            return;
+        }
+
+        notifications.update({
+            id: 'recommend-song',
+            loading: false,
+            title: 'Song wurde gespeichert',
+            message: 'Der Song wurde erfolgreich gespeichert.',
+            autoClose: 2000,
+            withCloseButton: true,
+            icon: <MdCheck />,
+            color: 'green'
         });
 
         close();

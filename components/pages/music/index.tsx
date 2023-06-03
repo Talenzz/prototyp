@@ -24,7 +24,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     HiAdjustmentsVertical,
     HiOutlineHeart,
@@ -79,20 +79,34 @@ export function MusicComponent({ songs }: MusicComponentProps) {
     const [liked, setLiked] = useState(false);
     const [opened, { open, close }] = useDisclosure(false);
 
-    console.log(songs);
-
     // song state
     const [fetchedSongs, setFetchedSongs] = useState<ISong[]>(songs);
     const [currentSong, setCurrentSong] = useState<ISong>(songs[0]);
     const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
 
+    useEffect(() => {
+        setFetchedSongs(songs);
+    }, []);
+
+    console.log(fetchedSongs);
+
     const setFilter = async (values: FilterFormSchema) => {
+        const { genres, tags, sorting } = values;
+
+
+        const url = new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/spotify/tracks`);
+        for (const genre of genres) {
+            url.searchParams.append("genres", genre);
+        }
+
+        for (const tag of tags) {
+            url.searchParams.append("tags", tag);
+        }
+
+        console.log({ genres, tags, sorting })
+
         // make api call with values
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/spotify/tracks?genres=${values.genres.join(
-                ","
-            )}&tags=${values.tags.join(",")}`
-        ); // &sorting=${values.sorting}
+        const res = await fetch(url); // &sorting=${values.sorting}
         const songs = (await res.json()) as ISong[];
         console.log(songs);
 
@@ -118,29 +132,19 @@ export function MusicComponent({ songs }: MusicComponentProps) {
 
     return (
         <>
-            <Container size="xl" p="xl">
-                <h1 className={classes.title}>
-                    <Text
-                        component="span"
-                        variant="gradient"
-                        gradient={{ from: "yellow", to: "cyan" }}
-                        inherit
-                    >
-                        Musik entdecken
-                    </Text>{" "}
-                    - Wie funktioniert&apos;s?
-                </h1>
+            <Container py="xl">
+                <Center>
+                    <Title order={1}>
+                        Entdecke hier die Tageshits der Community!
+                    </Title>
+                </Center>
                 <Space h="xl" />
                 <Center>
-                    <Button
-                        variant="default"
-                        onClick={() => router.push("/recommend")}
-                    >
-                        Mehr Informationen
-                    </Button>
+                    <Text>
+                        Wähle als Filter ein oder mehrere Genre(s) aus, um ohne Algorithmus und nach Deinem Geschmack Musik zu entdecken!
+                    </Text>
                 </Center>
-            </Container>
-            <Container>
+                <Space h="xl" />
                 <Stack spacing="xl">
                     {fetchedSongs.length > 0 ? (
                         <Spotify id={currentSong?.spotify.song.id!} />
@@ -230,7 +234,7 @@ export function MusicComponent({ songs }: MusicComponentProps) {
                     </Grid>
                 </Stack>
                 <Space h="xl" />
-                <DiscoverSongInformationComponent songs={songs} currentIndex={currentSongIndex} />
+                <DiscoverSongInformationComponent songs={fetchedSongs} currentIndex={currentSongIndex} />
             </Container>
             <Modal opened={opened} onClose={close} size="xl">
                 <form onSubmit={Form.onSubmit((values) => setFilter(values))}>

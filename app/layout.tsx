@@ -5,6 +5,7 @@ import { cookies } from "next/dist/client/components/headers";
 import { redirect } from "next/navigation";
 import { Inter } from "next/font/google";
 import { headers } from "next/headers";
+import { FooterSocial } from "@/components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,11 +40,13 @@ export default function RootLayout({
                         links={[
                             { link: "/marketplace", label: "Marktplatz", activeLink: false },
                             { link: "/recommend", label: "Empfehlen" },
-                            { link: "/music", label: "Musik" },
+                            { link: "/music", label: "Entdecken" },
                             { link: "/portfolio", label: "Portfolio", activeLink: false },
+                            { link: "/auth/login", label: "Login/Registrieren", activeLink: false }
                         ]}
                     />
                     {children}
+                    <FooterSocial />
                 </Providers>
             </body>
         </html>

@@ -7,6 +7,7 @@ import {
     Flex,
     Center,
     Modal,
+    Space,
 } from "@mantine/core";
 import { SongCard } from "../SongCard";
 import { useEffect, useState } from "react";
@@ -87,13 +88,13 @@ export function SongSearch() {
 
     return (
         <>
-            <Container>
-                <div className={classes.wrapper}>
-                    <div className={classes.body}>
-                        <Title className={classes.title}>
-                            Empfehle der Community deinen Song-Tipp des Tages!
-                        </Title>
-                        {/* <Text fw={500} fz="lg" mb={5}>
+            <Container size="md">
+                <Center>
+                    <Title order={1}>
+                        Empfehle der Community deinen Song-Tipp des Tages!
+                    </Title>
+                </Center>
+                {/* <Text fw={500} fz="lg" mb={5}>
                             Subscribe to our newsletter!
                         </Text>
                         <Text fz="sm" c="dimmed">
@@ -101,23 +102,22 @@ export function SongSearch() {
                             latest news and community QA sessions. Our
                             newsletter is once a week, every Sunday.
                         </Text> */}
-
-                        <div className={classes.controls}>
-                            <TextInput
-                                value={value}
-                                placeholder="Song name"
-                                classNames={{
-                                    root: classes.inputWrapper,
-                                }}
-                                onChange={(event) =>
-                                    setValue(event.currentTarget.value)
-                                }
-                            />
-                        </div>
+                <Center>
+                    <div className={classes.controls}>
+                        <TextInput
+                            value={value}
+                            placeholder="Song name"
+                            classNames={{
+                                root: classes.inputWrapper,
+                            }}
+                            onChange={(event) =>
+                                setValue(event.currentTarget.value)
+                            }
+                        />
                     </div>
-                </div>
+                </Center>
             </Container>
-            <Container size="xl">
+            <Container size="xl" my="xl">
                 <Center>
                     <Flex
                         mih={50}

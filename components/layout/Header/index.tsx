@@ -106,17 +106,15 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
     return (
         <Header height={60}>
             <Container className={classes.header}>
-                <Group spacing={5} className={classes.links}>
-                    <Link href="/" onClick={(e) => setActive(null)}>
-                        <Image
-                            src="/images/Talenzz_logo.png"
-                            height={128}
-                            width={128}
-                            alt={""}
-                        />
-                    </Link>
-                    {items}
-                </Group>
+                <Link href="/" onClick={(e) => setActive(null)}>
+                    <Image
+                        src="/images/Talenzz_logo.png"
+                        height={128}
+                        width={128}
+                        alt={""}
+                    />
+                </Link>
+                {items}
 
                 <Burger
                     opened={opened}
