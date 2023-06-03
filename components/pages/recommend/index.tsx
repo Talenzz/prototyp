@@ -15,7 +15,7 @@ export function RecommendComponent({ token }: RecommendComponentProps) {
             {/* <HeroTitle /> */}
             <Container size="45%" p="md">
                 <Center>
-                    <Title order={1}>Empfehlen und Entecken: Wie funktioniert's?</Title>
+                    <Title order={1}>Empfehlen und Entecken: Wie funktioniert&apos;s?</Title>
                 </Center>
                 <Space h="xl" />
                 <Text>
