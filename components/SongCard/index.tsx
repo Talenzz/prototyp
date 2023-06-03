@@ -1,6 +1,5 @@
 import { ITrack } from "@/types/spotify";
-import { createStyles, Card, Text, Group } from "@mantine/core";
-import Image from "next/image";
+import { createStyles, Card, Image, Text, Group } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
     card: {

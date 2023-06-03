@@ -5,13 +5,12 @@ import {
     createStyles,
     Header,
     Container,
-    Group,
+    Image,
     Burger,
     rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const useStyles = createStyles((theme) => ({
@@ -109,7 +108,6 @@ export function HeaderSimple({ links }: HeaderSimpleProps) {
                 <Link href="/" onClick={(e) => setActive(null)}>
                     <Image
                         src="/images/Talenzz_logo.png"
-                        height={128}
                         width={128}
                         alt={""}
                     />

@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, Center, Container, Grid, Space, Text, Title } from "@mantine/core";
-import Image from "next/image";
+import { Button, Center, Container, Grid, Image, Space, Text, Title } from "@mantine/core";
 import { useRouter } from "next/navigation";
 
 export function HomePage() {
@@ -43,17 +42,19 @@ export function HomePage() {
                         </Center>
                     </Grid.Col>
                     <Grid.Col span={6}>
-                        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                        {/* <div style={{ width: '100%', height: '100%', position: 'relative' }}>
                             <Image src="/images/home/1.jpg" fill={true} alt="" style={{ borderRadius: "10px" }} />
-                        </div>
+                        </div> */}
+                        <Image src="/images/home/1.jpg" width="100%" height="100%" style={{ borderRadius: "10px" }} />
                     </Grid.Col>
                 </Grid>
                 <Space my="xl" />
                 <Grid my="2.5rem">
                     <Grid.Col span={6}>
-                        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                        {/* <div style={{ width: '100%', height: '100%', position: 'relative' }}>
                             <Image src="/images/home/2.jpg" fill={true} alt="" style={{ borderRadius: "10px" }} />
-                        </div>
+                        </div> */}
+                        <Image src="/images/home/2.jpg" width="100%" height="100%" style={{ borderRadius: "10px" }} />
                     </Grid.Col>
                     <Grid.Col span={6}>
                         <Text fw={700}>Investieren:</Text>
@@ -101,9 +102,10 @@ export function HomePage() {
                         </Text>
                     </Grid.Col>
                     <Grid.Col span={6}>
-                        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                        {/* <div style={{ width: '100%', height: '100%', position: 'relative' }}>
                             <Image src="/images/home/3.jpg" fill={true} alt="" style={{ borderRadius: "10px" }} />
-                        </div>
+                        </div> */}
+                        <Image src="/images/home/3.jpg" width="100%" height="100%" style={{ borderRadius: "10px" }} />
                     </Grid.Col>
                 </Grid>
             </Container>

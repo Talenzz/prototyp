@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import axios from "axios";
 import { IAlbum, IArtist, ITrack } from "@/types/spotify";
 import {
     Button,
+    Center,
     Container,
     Group,
+    Image,
     MultiSelect,
     Select,
     Space,
@@ -186,12 +187,14 @@ export function SongRecommend({ track, close }: SongRecommendProps) {
             <Container sx={{ textAlign: "center" }}>
                 <Title order={1}>Empfehle deinen Song!</Title>
                 <Space h="xl" />
-                <Image
-                    src={track.album.images[0].url}
-                    width={300}
-                    height={300}
-                    alt={track.name}
-                />
+                <Center>
+                    <Image
+                        src={track.album.images[0].url}
+                        width={300}
+                        height={300}
+                        alt={track.name}
+                    />
+                </Center>
                 <Space h="xl" />
                 <Title order={2}>{track.name}</Title>
                 <Title order={3}>{track.artists[0].name}</Title>

@@ -1,6 +1,5 @@
 import { ISong } from "@/models/Song";
-import { Grid, Stack, Title } from "@mantine/core";
-import Image from "next/image";
+import { Grid, Image, Stack, Title } from "@mantine/core";
 
 interface DiscoverSongInformationProps {
     songs: ISong[];
