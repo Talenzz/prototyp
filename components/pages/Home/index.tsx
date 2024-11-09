@@ -86,11 +86,11 @@ export function HomePage() {
                     <Grid.Col span={6}>
                         <Text fw={700}>Empfehlen und Entdecken</Text>
                         <Text>
-                            Du kannst der Community einmal täglich ein Lied empfehlen. Dieser taucht dann bei den anderen Usern auf. Je öfter der Song von anderen Usern geliked wird, desto höher die Chance, dass der Artist bei uns aufgenommen wird.
+                            Du kannst der Community einmal täglich ein Lied empfehlen. Dieser taucht dann bei den anderen Usern auf. Je öfter der Song von anderen Usern geliked wird, desto höher ist er in den Charts.
                         </Text>
                         <Space h="md" />
                         <Text>
-                            Ab einer bestimmten Anzahl an Likes werden die KünstlerInnen von uns angeschrieben. Diese entscheiden dann, ob sie Teil des ersten Community Labels werden wollen und Teile ihrer Rechte anbieten, um Ihr nächstes Projekt zu verwirklichen.
+                            Ab einer bestimmten Reichweite werden die Artists von uns angeschrieben. Diese entscheiden dann, ob sie Teil von Talenzz/unseren Partnern werden wollen und Teile ihrer Rechte anbieten, um Ihr nächstes Projekt zu verwirklichen.
                         </Text>
                         <Space h="md" />
                         <Text>
