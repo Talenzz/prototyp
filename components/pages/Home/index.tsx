@@ -56,12 +56,12 @@ export function HomePage() {
                         </div>
                     </Grid.Col>
                     <Grid.Col span={6}>
-                        <Text fw={700}>Der "Algorithmic Disconnect":</Text>
+                        <Text fw={700}>Der Algorithmic Disconnect:</Text>
                         <Text>
                             Große Plattformen wie YouTube, Instagram und Spotify haben einen Paradigmenwechsel vollzogen - von follow-basierten Feeds zu algorithmischen Ranking-Systemen. Die Konsequenzen sind weitreichend:
                             Content wird für Algorithmen statt für Menschen optimiert
                                 1. Fans verpassen Inhalte von Kreativen, denen sie folgen
-                                2. Die direkte Verbindung zwischen Künstlern und Publikum erodiert
+                                2. Die direkte Verbindung zwischen Artists und Publikum erodiert
                                 3. Kreativität wird zugunsten von Performance-Metriken wie Watchtime unterdrückt
                                 4. Ein unsichtbarer Krieg zwischen Inhalten entbrennt, basierend auf undurchsichtigen Kriterien
                                 5. Spam und KI-generierte Inhalte überfluten die Plattformen
@@ -71,11 +71,11 @@ export function HomePage() {
                         <Space h="xl" />
                         <Text fw={700}>Talenzz: Ein Paradigmenwechsel für die Musikbranche</Text>
                         <Text>
-                            In dieser herausfordernden Landschaft positioniert sich Talenzz als sicherer Hafen für Musiker und Fans. Unser Ziel ist die Wiederherstellung authentischer Verbindungen in der digitalen Welt.
+                            In dieser herausfordernden Landschaft positioniert sich Talenzz als sicherer Hafen für Artists und Fans. Unser Ziel ist die Wiederherstellung authentischer Verbindungen in der digitalen Welt.
                             Unser innovativer Ansatz:
-                                1. Fokus auf direkte Fan-Künstler-Beziehungen
+                                1. Fokus auf direkte Fan-Artist-Beziehungen
                                 2. Revolutionäre Musikentdeckung und -empfehlung
-                                3. Crowdfunding-Modell zur nachhaltigen Unterstützung von Künstlern
+                                3. Crowdfunding-Modell zur nachhaltigen Unterstützung von Musikschaffenden
                         </Text>
                         <Space h="xl" />                        
                     </Grid.Col>
