@@ -12,7 +12,7 @@ export function HomePage() {
             <Container size="xl" mt="xl" mb="xl">
                 <Grid>
                     <Grid.Col span={6}>
-                        <Title>Das erste Community Label</Title>
+                        <Title>Das Community Label</Title>
                         <Space h="xl" />
                         <Text fw={700}>
                             Talenzz demokratisiert die Musiklandschaft.
@@ -26,7 +26,7 @@ export function HomePage() {
                         <Text fw={700}>
                             Entdecke neue Musik, empfehle Deine Topsongs der
                             Community und unterstütze Deine neuen
-                            LieblingskünstlerInnen.
+                            Lieblingsartists.
                         </Text>
                         <Space h="xl" />
                         <Text fw={700}>
@@ -56,12 +56,23 @@ export function HomePage() {
                         </div>
                     </Grid.Col>
                     <Grid.Col span={6}>
-                        <Text fw={700}>Investieren:</Text>
+                        <Text fw={700}>Der "Algorithmic Disconnect":</Text>
                         <Text>
-                            Du kannst hier ganz unkompliziert Deine Lieblingskünstlerin
-                            supporten in dem Du mit Deinem Guthaben in deren Rechte investierst.
-                            In Deinem Dashboard kannst du Geld ein- und auszahlen und hast all Deine
-                            Käufe im Überblick.
+                            Große Plattformen wie YouTube, Instagram und Spotify haben einen Paradigmenwechsel vollzogen - von follow-basierten Feeds zu algorithmischen Ranking-Systemen. Die Konsequenzen sind weitreichend:
+                            Content wird für Algorithmen statt für Menschen optimiert
+                                1. Fans verpassen Inhalte von Kreativen, denen sie folgen
+                                2. Die direkte Verbindung zwischen Künstlern und Publikum erodiert
+                                3. Kreativität wird zugunsten von Performance-Metriken wie Watchtime unterdrückt
+                                4. Ein unsichtbarer Krieg zwischen Inhalten entbrennt, basierend auf undurchsichtigen Kriterien
+                                5. Spam und KI-generierte Inhalte überfluten die Plattformen
+                                6. Selbst auf Spotify tauchen "Ghost Artists" auf, deren Songs für Algorithmen optimiert sind
+                            
+                            Talenzz: Ein Paradigmenwechsel für die Musikbranche
+                            In dieser herausfordernden Landschaft positioniert sich Talenzz als sicherer Hafen für Musiker und Fans. Unser Ziel ist die Wiederherstellung authentischer Verbindungen in der digitalen Welt.
+                            Unser innovativer Ansatz:
+                                1. Fokus auf direkte Fan-Künstler-Beziehungen
+                                2. Revolutionäre Musikentdeckung und -empfehlung
+                                3. Crowdfunding-Modell zur nachhaltigen Unterstützung von Künstlern
                         </Text>
                         <Space h="xl" />
                         <Text fw={700}>Was sind Rechte?</Text>
