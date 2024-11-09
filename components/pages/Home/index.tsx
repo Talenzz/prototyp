@@ -65,29 +65,19 @@ export function HomePage() {
                                 3. Kreativität wird zugunsten von Performance-Metriken wie Watchtime unterdrückt
                                 4. Ein unsichtbarer Krieg zwischen Inhalten entbrennt, basierend auf undurchsichtigen Kriterien
                                 5. Spam und KI-generierte Inhalte überfluten die Plattformen
-                                6. Selbst auf Spotify tauchen "Ghost Artists" auf, deren Songs für Algorithmen optimiert sind
-                            
-                            Talenzz: Ein Paradigmenwechsel für die Musikbranche
+                                6. Selbst auf Spotify tauchen "Ghost Artists" auf, deren Songs für Algorithmen optimiert sind                                                   
+                           
+                        </Text>
+                        <Space h="xl" />
+                        <Text fw={700}>Talenzz: Ein Paradigmenwechsel für die Musikbranche</Text>
+                        <Text>
                             In dieser herausfordernden Landschaft positioniert sich Talenzz als sicherer Hafen für Musiker und Fans. Unser Ziel ist die Wiederherstellung authentischer Verbindungen in der digitalen Welt.
                             Unser innovativer Ansatz:
                                 1. Fokus auf direkte Fan-Künstler-Beziehungen
                                 2. Revolutionäre Musikentdeckung und -empfehlung
                                 3. Crowdfunding-Modell zur nachhaltigen Unterstützung von Künstlern
                         </Text>
-                        <Space h="xl" />
-                        <Text fw={700}>Was sind Rechte?</Text>
-                        <Text>
-                            Durch die Rechte am Werk erhält der/die KünstlerIn seinen/ihren Anteil
-                            an z.B. den Streaming Einnahmen eines Songs. Auf Talenzz kann ein Artist
-                            einen Teil seiner/ihrer Rechte in vorher festgelegter Höhe und Zeitraum für
-                            Fans freigeben. Hast Du investiert erhältst Du somit Deinen Anteil an den
-                            Streaming Einnahmen des Liedes.
-                        </Text>
-                        <Space h="xl" />
-                        <Text fw={700}>Was sind NFTs?</Text>
-                        <Text>
-                            NFTS sind einzigartige digitale Besitznachweise. Diesen erhälst Du wenn Du in die Rechte eines Songs investierst. Der Inhaber des NFTs ist leichzeitig der/ die Empfängerin der Royalties. Du kannst später Deine NFTs auch weiterverkaufen, wenn Du das möchtest.
-                        </Text>
+                        <Space h="xl" />                        
                     </Grid.Col>
                 </Grid>
                 <Space my="xl" />
