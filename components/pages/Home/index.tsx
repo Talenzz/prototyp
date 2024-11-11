@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Center, Container, Grid, Space, Text, Title } from "@mantine/core";
+import { Button, Center, Container, Grid, List, Space, Text, Title } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -60,22 +60,25 @@ export function HomePage() {
                         <Text>
                             Große Plattformen wie YouTube, Instagram und Spotify haben einen Paradigmenwechsel vollzogen - von follow-basierten Feeds zu algorithmischen Ranking-Systemen. Die Konsequenzen sind weitreichend:
                             Content wird für Algorithmen statt für Menschen optimiert
-                                1. Fans verpassen Inhalte von Kreativen, denen sie folgen
-                                2. Die direkte Verbindung zwischen Artists und Publikum erodiert
-                                3. Kreativität wird zugunsten von Performance-Metriken wie Watchtime unterdrückt
-                                4. Ein unsichtbarer Krieg zwischen Inhalten entbrennt, basierend auf undurchsichtigen Kriterien
-                                5. Spam und KI-generierte Inhalte überfluten die Plattformen
-                                6. Selbst auf Spotify tauchen &quot;Ghost Artists&quot; auf, deren Songs für Algorithmen optimiert sind                                                   
-                           
+                            <List type="ordered">
+                                <List.Item>Fans verpassen Inhalte von Kreativen, denen sie folgen</List.Item>
+                                <List.Item>Die direkte Verbindung zwischen Artists und Publikum erodiert</List.Item>
+                                <List.Item>Kreativität wird zugunsten von Performance-Metriken wie Watchtime unterdrückt</List.Item>
+                                <List.Item>Ein unsichtbarer Krieg zwischen Inhalten entbrennt, basierend auf undurchsichtigen Kriterien</List.Item>
+                                <List.Item>Spam und KI-generierte Inhalte überfluten die Plattformen</List.Item>
+                                <List.Item>Selbst auf Spotify tauchen &quot;Ghost Artists&quot; auf, deren Songs für Algorithmen optimiert sind</List.Item>
+                            </List>                                                
                         </Text>
                         <Space h="xl" />
                         <Text fw={700}>Talenzz: Ein Paradigmenwechsel für die Musikbranche</Text>
                         <Text>
                             In dieser herausfordernden Landschaft positioniert sich Talenzz als sicherer Hafen für Artists und Fans. Unser Ziel ist die Wiederherstellung authentischer Verbindungen in der digitalen Welt.
                             Unser innovativer Ansatz:
-                                1. Fokus auf direkte Fan-Artist-Beziehungen
-                                2. Revolutionäre Musikentdeckung und -empfehlung
-                                3. Crowdfunding-Modell zur nachhaltigen Unterstützung von Musikschaffenden
+                            <List type="ordered">
+                                <List.Item>Fokus auf direkte Fan-Artist-Beziehungen</List.Item>
+                                <List.Item>Revolutionäre Musikentdeckung und -empfehlung</List.Item>
+                                <List.Item>Crowdfunding-Modell zur nachhaltigen Unterstützung von Musikschaffenden</List.Item>
+                            </List>
                         </Text>
                         <Space h="xl" />                        
                     </Grid.Col>
