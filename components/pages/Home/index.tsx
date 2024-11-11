@@ -65,7 +65,7 @@ export function HomePage() {
                                 3. Kreativität wird zugunsten von Performance-Metriken wie Watchtime unterdrückt
                                 4. Ein unsichtbarer Krieg zwischen Inhalten entbrennt, basierend auf undurchsichtigen Kriterien
                                 5. Spam und KI-generierte Inhalte überfluten die Plattformen
-                                6. Selbst auf Spotify tauchen "Ghost Artists" auf, deren Songs für Algorithmen optimiert sind                                                   
+                                6. Selbst auf Spotify tauchen &quot;Ghost Artists&quot; auf, deren Songs für Algorithmen optimiert sind                                                   
                            
                         </Text>
                         <Space h="xl" />
