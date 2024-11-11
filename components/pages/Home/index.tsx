@@ -60,7 +60,7 @@ export function HomePage() {
                         <Text>
                             Große Plattformen wie YouTube, Instagram und Spotify haben einen Paradigmenwechsel vollzogen - von follow-basierten Feeds zu algorithmischen Ranking-Systemen. Die Konsequenzen sind weitreichend:
                             Content wird für Algorithmen statt für Menschen optimiert
-                            <List type="ordered">
+                            <List type="ordered" withPadding>
                                 <List.Item>Fans verpassen Inhalte von Kreativen, denen sie folgen</List.Item>
                                 <List.Item>Die direkte Verbindung zwischen Artists und Publikum erodiert</List.Item>
                                 <List.Item>Kreativität wird zugunsten von Performance-Metriken wie Watchtime unterdrückt</List.Item>
@@ -74,7 +74,7 @@ export function HomePage() {
                         <Text>
                             In dieser herausfordernden Landschaft positioniert sich Talenzz als sicherer Hafen für Artists und Fans. Unser Ziel ist die Wiederherstellung authentischer Verbindungen in der digitalen Welt.
                             Unser innovativer Ansatz:
-                            <List type="ordered">
+                            <List type="ordered" withPadding>
                                 <List.Item>Fokus auf direkte Fan-Artist-Beziehungen</List.Item>
                                 <List.Item>Revolutionäre Musikentdeckung und -empfehlung</List.Item>
                                 <List.Item>Crowdfunding-Modell zur nachhaltigen Unterstützung von Musikschaffenden</List.Item>
